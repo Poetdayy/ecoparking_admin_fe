@@ -1,7 +1,7 @@
 import { BellFilled, MailOutlined } from "@ant-design/icons";
 import { Badge, Drawer, Image, List, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { getComments, getOrders } from "../../API";
+import { getComments, getOrders } from "../../Api";
 
 function AppHeader() {
   const [comments, setComments] = useState([]);
@@ -22,9 +22,8 @@ function AppHeader() {
     <div className="AppHeader">
       <Image
         width={40}
-        src="https://yt3.ggpht.com/ytc/AMLnZu83ghQ28n1SqADR-RbI2BGYTrqqThAtJbfv9jcq=s176-c-k-c0x00ffffff-no-rj"
+        src='../../../public/Vintage_Car.png'
       ></Image>
-      <Typography.Title>Aamir's Dashboard</Typography.Title>
       <Space>
         <Badge count={comments.length} dot>
           <MailOutlined

@@ -1,7 +1,7 @@
 import {
   AppstoreOutlined,
-  ShopOutlined,
-  ShoppingCartOutlined,
+  CarFilled,
+  BookOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
@@ -35,14 +35,14 @@ function SideMenu() {
             key: "/",
           },
           {
-            label: "Inventory",
+            label: "Parkings",
             key: "/inventory",
-            icon: <ShopOutlined />,
+            icon: <CarFilled />,
           },
           {
-            label: "Orders",
+            label: "Tickets",
             key: "/orders",
-            icon: <ShoppingCartOutlined />,
+            icon: <BookOutlined />,
           },
           {
             label: "Customers",

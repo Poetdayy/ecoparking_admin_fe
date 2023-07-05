@@ -1,12 +1,12 @@
 import {
   DollarCircleOutlined,
-  ShoppingCartOutlined,
-  ShoppingOutlined,
+  CarFilled,
+  BookOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Card, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { getCustomers, getInventory, getOrders, getRevenue } from "../../API";
+import { getCustomers, getInventory, getOrders, getRevenue } from "../../Api";
 import DashboardCard from "../../Components/Helper/DashboardCard";
 
 import {
@@ -51,10 +51,10 @@ function Dashboard() {
   return (
     <Space size={10} direction="vertical">
       <Typography.Title level={4}>Dashboard</Typography.Title>
-      <Space direction="horizontal">
+      <Space direction="horizontal" style={{display:"flex", justifyContent:"evenly"}}>
         <DashboardCard
           icon={
-            <ShoppingCartOutlined
+            <CarFilled
               style={{
                 color: "green",
                 backgroundColor: "rgba(0,255,0,0.25)",
@@ -64,12 +64,12 @@ function Dashboard() {
               }}
             />
           }
-          title={"Orders"}
+          title={"Parkings"}
           value={orders}
         />
         <DashboardCard
           icon={
-            <ShoppingOutlined
+            <BookOutlined
               style={{
                 color: "blue",
                 backgroundColor: "rgba(0,0,255,0.25)",
@@ -79,7 +79,7 @@ function Dashboard() {
               }}
             />
           }
-          title={"Inventory"}
+          title={"Tickets"}
           value={inventory}
         />
         <DashboardCard
@@ -110,7 +110,7 @@ function Dashboard() {
             />
           }
           title={"Revenue"}
-          value={revenue}
+          value={revenue + "\u00A0vnd"}
         />
       </Space>
       <Space>

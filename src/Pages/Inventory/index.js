@@ -1,60 +1,65 @@
 import { Avatar, Rate, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { getInventory } from "../../API";
+import parkingApi from "../../Api/parkingApi";
 
 function Inventory() {
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSource] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
-    getInventory().then((res) => {
-      setDataSource(res.products);
-      setLoading(false);
-    });
+    const fetchParkingsList = async () => {
+      setLoading(true);
+
+      try {
+        const response = await parkingApi.getAll();
+        setDataSource(response);
+        setLoading(false);
+      } catch (error) {
+        setLoading(true);
+        console.log(`Failed to fetch parkings list`, error);
+      }
+    } 
+
+    fetchParkingsList();
   }, []);
 
   return (
     <Space size={20} direction="vertical">
-      <Typography.Title level={4}>Inventory</Typography.Title>
+      <Typography.Title level={4}>Parkings</Typography.Title>
       <Table
         loading={loading}
         columns={[
           {
-            title: "Thumbnail",
-            dataIndex: "thumbnail",
-            render: (link) => {
-              return <Avatar src={link} />;
-            },
+            title: "Image",
+            dataIndex: "image",
+            key: "Image",
+            render: (image) =>  <Avatar src={image}></Avatar>
           },
           {
-            title: "Title",
-            dataIndex: "title",
+            title:"Name",
+            dataIndex: "name",
+            key:"Name"
           },
           {
-            title: "Price",
-            dataIndex: "price",
-            render: (value) => <span>${value}</span>,
+            title: "Address",
+            dataIndex: "address",
+            key: "Address"
           },
           {
-            title: "Rating",
-            dataIndex: "rating",
-            render: (rating) => {
-              return <Rate value={rating} allowHalf disabled />;
-            },
+            title: "Park Type",
+            dataIndex: "parkType",
+            key: "ParkType",
+            render: (parkType) => <Typography>{ parkType === 0 ? "Planned Parking" : "Spantaneous Parking" }</Typography>
+          },  
+          {
+            title: "Quantity",
+            dataIndex: "quantity",
+            key: "Quantity"
           },
           {
-            title: "Stock",
-            dataIndex: "stock",
-          },
-
-          {
-            title: "Brand",
-            dataIndex: "brand",
-          },
-          {
-            title: "Category",
-            dataIndex: "category",
+            title: "Avaiable Slots",
+            dataIndex: "available",
+            key: "AvaiableSlots"
           },
         ]}
         dataSource={dataSource}

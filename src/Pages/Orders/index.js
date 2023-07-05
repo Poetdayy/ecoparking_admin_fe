@@ -1,28 +1,41 @@
-import { Avatar, Rate, Space, Table, Typography } from "antd";
+import { Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { getInventory, getOrders } from "../../API";
+import ticketApi from "../../Api/ticketsApi";
 
 function Orders() {
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSource] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
-    getOrders().then((res) => {
-      setDataSource(res.products);
-      setLoading(false);
-    });
+    const fetchTicketsList = async () => {
+      setLoading(true);
+
+      try {
+        const response = await ticketApi.getAll();
+
+        setDataSource(response);
+        setLoading(false);
+      } catch (error) {
+        setLoading(true);
+        console.log(`Failed to fetch tickets list`, error);
+      }
+    } 
+
+    fetchTicketsList();
   }, []);
+
+  console.log(dataSource);
 
   return (
     <Space size={20} direction="vertical">
-      <Typography.Title level={4}>Orders</Typography.Title>
+      <Typography.Title level={4}>Revenue</Typography.Title>
       <Table
         loading={loading}
         columns={[
           {
-            title: "Title",
+            title: "Parking",
             dataIndex: "title",
+            
           },
           {
             title: "Price",
@@ -30,8 +43,8 @@ function Orders() {
             render: (value) => <span>${value}</span>,
           },
           {
-            title: "DiscountedPrice",
-            dataIndex: "discountedPrice",
+            title: "carNumber",
+            dataIndex: "carNumber",
             render: (value) => <span>${value}</span>,
           },
           {
@@ -51,4 +64,5 @@ function Orders() {
     </Space>
   );
 }
+
 export default Orders;
