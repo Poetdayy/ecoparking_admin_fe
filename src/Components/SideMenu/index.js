@@ -3,6 +3,7 @@ import {
   CarFilled,
   BookOutlined,
   UserOutlined,
+  FormOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useEffect, useState } from "react";
@@ -48,6 +49,11 @@ function SideMenu() {
             label: "Customers",
             key: "/customers",
             icon: <UserOutlined />,
+          },
+          {
+            label: "Đăng Ký Bãi Xe",
+            key: "/formregister",
+            icon: <FormOutlined />,
           },
         ]}
       ></Menu>
