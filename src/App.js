@@ -1,20 +1,35 @@
-import { Space } from "antd";
+import { Fragment } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { routes } from "./routes";
 import "./App.css";
-import AppFooter from "./Components/AppFooter";
-import AppHeader from "./Components/AppHeader";
-import PageContent from "./Components/PageContent";
-import SideMenu from "./Components/SideMenu";
+import DefaultLayout from "./Layouts/DefaultLayout";
 
 function App() {
   return (
-    <div className="App">
-      <AppHeader />
-      <div className="SideMenuAndPageContent">
-        <SideMenu></SideMenu>
-        <PageContent></PageContent>
-      </div>
-      <AppFooter />
-    </div>
+    <>
+      <Router>
+        <div className="App">
+          <Routes>
+            {routes.map((route, index) => {
+              const Layout = route.layout === null ? Fragment : DefaultLayout
+              const Page = route.component;
+              return (
+                <Route 
+                  key={index} 
+                  path={route.path} 
+                  element={
+                    <Layout>
+                      <Page></Page>
+                    </Layout>
+                  }
+                >
+                </Route>
+              ) 
+            })}
+          </Routes>
+        </div>
+      </Router>
+    </>
   );
 }
 export default App;

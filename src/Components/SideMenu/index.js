@@ -20,7 +20,7 @@ function SideMenu() {
 
   const navigate = useNavigate();
   return (
-    <div className="SideMenu">
+    <div className="SideMenu" style={{ height: `calc(100vh - 60px)` }}>
       <Menu
         className="SideMenuVertical"
         mode="vertical"
@@ -37,7 +37,7 @@ function SideMenu() {
           },
           {
             label: "Parkings",
-            key: "/inventory",
+            key: "/parkings",
             icon: <CarFilled />,
           },
           {
@@ -46,8 +46,8 @@ function SideMenu() {
             icon: <BookOutlined />,
           },
           {
-            label: "Customers",
-            key: "/customers",
+            label: "Users",
+            key: "/users",
             icon: <UserOutlined />,
           },
           {

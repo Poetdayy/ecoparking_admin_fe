@@ -6,8 +6,8 @@ import {
 } from "@ant-design/icons";
 import { Card, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { getCustomers, getInventory, getOrders, getRevenue } from "../../Api";
-import DashboardCard from "../../Components/Helper/DashboardCard";
+import { getCustomers, getInventory, getOrders, getRevenue } from "../Api";
+import DashboardCard from "../Components/Helper/DashboardCard";
 
 import {
   Chart as ChartJS,
@@ -30,23 +30,6 @@ ChartJS.register(
 );
 
 function Dashboard() {
-  const [orders, setOrders] = useState(0);
-  const [inventory, setInventory] = useState(0);
-  const [customers, setCustomers] = useState(0);
-  const [revenue, setRevenue] = useState(0);
-
-  useEffect(() => {
-    getOrders().then((res) => {
-      setOrders(res.total);
-      setRevenue(res.discountedTotal);
-    });
-    getInventory().then((res) => {
-      setInventory(res.total);
-    });
-    getCustomers().then((res) => {
-      setCustomers(res.total);
-    });
-  }, []);
 
   return (
     <Space size={10} direction="vertical">
@@ -65,7 +48,7 @@ function Dashboard() {
             />
           }
           title={"Parkings"}
-          value={orders}
+          value='7'
         />
         <DashboardCard
           icon={
@@ -80,7 +63,7 @@ function Dashboard() {
             />
           }
           title={"Tickets"}
-          value={inventory}
+          value="11"
         />
         <DashboardCard
           icon={
@@ -95,7 +78,7 @@ function Dashboard() {
             />
           }
           title={"Customer"}
-          value={customers}
+          value='3'
         />
         <DashboardCard
           icon={
@@ -110,7 +93,7 @@ function Dashboard() {
             />
           }
           title={"Revenue"}
-          value={revenue + "\u00A0vnd"}
+          value="600.000 vnd"
         />
       </Space>
       <Space>
@@ -125,34 +108,52 @@ function RecentOrders() {
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    getOrders().then((res) => {
-      setDataSource(res.products.splice(0, 3));
-      setLoading(false);
-    });
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   getOrders().then((res) => {
+  //     setDataSource(res.products.splice(0, 3));
+  //     setLoading(false);
+  //   });
+  // }, []);
+
+  const data = [
+    {
+      parking: "Bãi gửi xe C1",
+      tickets: "5",
+      revenue: "300.000"
+    },
+    {
+      parking: "Bãi đỗ xe B1	",
+      tickets: "4",
+      revenue: "200.000"
+    },
+    {
+      parking: "Bãi đỗ xe bệnh viện bạch mai hà nội",
+      tickets: "2",
+      revenue: "100.000"
+    },
+  ]
 
   return (
     <>
-      <Typography.Text>Recent Orders</Typography.Text>
+      <Typography.Text>Greatest Revenue Parking</Typography.Text>
       <Table
         columns={[
           {
             title: "Title",
-            dataIndex: "title",
+            dataIndex: "parking",
           },
           {
-            title: "Quantity",
-            dataIndex: "quantity",
+            title: "Tickets",
+            dataIndex: "tickets",
           },
           {
-            title: "Price",
-            dataIndex: "discountedPrice",
+            title: "Revenue",
+            dataIndex: "revenue",
           },
         ]}
         loading={loading}
-        dataSource={dataSource}
+        dataSource={data}
         pagination={false}
       ></Table>
     </>

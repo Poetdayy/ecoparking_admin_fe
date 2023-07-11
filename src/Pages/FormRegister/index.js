@@ -10,8 +10,8 @@ const normFile = (e) => {
     }
     return e?.fileList;
   };
-const App = () => (
-  <div className='app'>
+const FormRegister = () => (
+  <div className='FormRegister'>
     <Typography.Title level={4}>Form Đăng Ký Bãi Đỗ Xe</Typography.Title> 
     <div className='form'>
         <Space size={20} direction="vertical"> 
@@ -89,4 +89,4 @@ const App = () => (
 );
 
 
-export default App;
+export default FormRegister;
